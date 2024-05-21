@@ -1,0 +1,13 @@
+body.page{
+  background-color: bisque;
+}
+
+h2{
+  padding: 30px;
+  text-transform: uppercase;
+}
+div{
+  color: blue;
+  padding: 30px;
+  border: 1px solid black;
+}
