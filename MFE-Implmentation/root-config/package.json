@@ -4,7 +4,8 @@
     "lint": "eslint src",
     "test": "jest --passWithNoTests",
     "format": "prettier --write './**'",
-    "build": "webpack --mode=production"
+    "build": "webpack --mode=production",
+    "deploy": "aws s3 cp ./dist s3://mfe-deploy.io --recursive"
   },
   "husky": {
     "hooks": {

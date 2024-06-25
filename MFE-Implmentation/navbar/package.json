@@ -6,7 +6,8 @@
     "serve": "vue-cli-service serve --port 8501",
     "build": "vue-cli-service build",
     "test:unit": "vue-cli-service test:unit --passWithNoTests",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "deploy": "aws s3 cp ./dist/js/app.js s3://mfe-deploy.io/apps/navbar.js"
   },
   "dependencies": {
     "core-js": "^3.6.5",

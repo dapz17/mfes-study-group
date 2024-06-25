@@ -9,6 +9,7 @@ registerApplication({
   },
 });
 
+// ORIGINAL
 registerApplication({
   name: "@vue-mf/dogs-dashboard",
   app: () => System.import("@vue-mf/dogs-dashboard"),
@@ -20,5 +21,17 @@ registerApplication({
   app: () => System.import("@vue-mf/rate-dogs"),
   activeWhen: "/rate-doggos",
 });
+
+// registerApplication({
+//   name: "@vue-mf/dogs-dashboard",
+//   app: () => System.import("@vue-mf/dogs-dashboard"),
+//   activeWhen: "/rate-doggos",
+// });
+
+// registerApplication({
+//   name: "@vue-mf/rate-dogs",
+//   app: () => System.import("@vue-mf/rate-dogs"),
+//   activeWhen: "/view-doggos",
+// });
 
 start();
