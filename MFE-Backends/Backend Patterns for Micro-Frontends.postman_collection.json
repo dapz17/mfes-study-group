@@ -1,0 +1,1272 @@
+{
+	"info": {
+		"_postman_id": "441f2cd9-6aab-440d-9c4a-2b97c63de2f9",
+		"name": "Backend Patterns for Micro-Frontends",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Regular FE Monolith",
+			"item": [
+				{
+					"name": "Auth MFE",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    var response = pm.response.json();",
+											"    var token = response.token;",
+											"    pm.environment.set(\"auth-token\", token);",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"emilys\",\n    \"password\": \"emilyspass\",\n    \"expiresInMins\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://dummyjson.com/auth/login",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/auth/me",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reader MFE",
+					"item": [
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/auth/me",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Favorite Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/users/5/posts",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"users",
+										"5",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Recent Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/posts/tag/view",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"posts",
+										"tag",
+										"view"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Post Detail by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/posts/1",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogger MFE",
+					"item": [
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/auth/me",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://dummyjson.com/posts/user/5",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"posts",
+										"user",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": 5,\n    \"title\": \"His mother had always taught him\",\n    \"body\": \"His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.\",\n    \"tags\": [\n        \"history\",\n        \"american\",\n        \"fiction\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "https://dummyjson.com/posts/add",
+									"protocol": "https",
+									"host": [
+										"dummyjson",
+										"com"
+									],
+									"path": [
+										"posts",
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Service Dictionary",
+			"item": [
+				{
+					"name": "Auth MFE",
+					"item": [
+						{
+							"name": "Get Dictionary",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.equals(200);",
+											"    var response = pm.response.json();",
+											"    var authApi = response.auth_api;",
+											"    pm.environment.set(\"auth-api\", authApi);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/dictionary?mfe=auth",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"dictionary"
+									],
+									"query": [
+										{
+											"key": "mfe",
+											"value": "auth"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    var response = pm.response.json();",
+											"    var token = response.token;",
+											"    pm.environment.set(\"auth-token\", token);",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"emilys\",\n    \"password\": \"emilyspass\",\n    \"expiresInMins\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{auth-api}}/login",
+									"host": [
+										"{{auth-api}}"
+									],
+									"path": [
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth-api}}/me",
+									"host": [
+										"{{auth-api}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reader MFE",
+					"item": [
+						{
+							"name": "Get Dictionary",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.equals(200);",
+											"    var response = pm.response.json();",
+											"    pm.environment.set(\"auth-api\", response.auth_api);",
+											"    pm.environment.set(\"user-api\", response.user_api);",
+											"    pm.environment.set(\"post-api\", response.post_api);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/dictionary?mfe=reader",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"dictionary"
+									],
+									"query": [
+										{
+											"key": "mfe",
+											"value": "reader"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth-api}}/me",
+									"host": [
+										"{{auth-api}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Favorite Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{user-api}}/5/posts",
+									"host": [
+										"{{user-api}}"
+									],
+									"path": [
+										"5",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Recent Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{post-api}}/tag/view",
+									"host": [
+										"{{post-api}}"
+									],
+									"path": [
+										"tag",
+										"view"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Post Detail by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{post-api}}/1",
+									"host": [
+										"{{post-api}}"
+									],
+									"path": [
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogger MFE",
+					"item": [
+						{
+							"name": "Get Dictionary",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    pm.expect(pm.response.code).to.be.equals(200);",
+											"    var response = pm.response.json();",
+											"    pm.environment.set(\"auth-api\", response.auth_api);",
+											"    pm.environment.set(\"post-api\", response.post_api);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:3000/dictionary?mfe=blogger",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "3000",
+									"path": [
+										"dictionary"
+									],
+									"query": [
+										{
+											"key": "mfe",
+											"value": "blogger"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{auth-api}}/me",
+									"host": [
+										"{{auth-api}}"
+									],
+									"path": [
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{post-api}}/user/5",
+									"host": [
+										"{{post-api}}"
+									],
+									"path": [
+										"user",
+										"5"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": 5,\n    \"title\": \"His mother had always taught him\",\n    \"body\": \"His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.\",\n    \"tags\": [\n        \"history\",\n        \"american\",\n        \"fiction\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{post-api}}/add",
+									"host": [
+										"{{post-api}}"
+									],
+									"path": [
+										"add"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "API Gateway",
+			"item": [
+				{
+					"name": "Auth MFE",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    var response = pm.response.json();",
+											"    var token = response.token;",
+											"    pm.environment.set(\"auth-token\", token);",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"emilys\",\n    \"password\": \"emilyspass\",\n    \"expiresInMins\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway}}/auth/login",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/auth/me",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reader MFE",
+					"item": [
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/auth/me",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Favorite Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/reader/5/favorites",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"reader",
+										"5",
+										"favorites"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Recent Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/reader/recents",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"reader",
+										"recents"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Post Detail by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/reader/posts/1",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"reader",
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogger MFE",
+					"item": [
+						{
+							"name": "Get Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/auth/me",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"auth",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get My Posts",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-gateway}}/blogger/5/posts",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"blogger",
+										"5",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": 5,\n    \"title\": \"His mother had always taught him\",\n    \"body\": \"His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.\",\n    \"tags\": [\n        \"history\",\n        \"american\",\n        \"fiction\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-gateway}}/blogger/new-post",
+									"host": [
+										"{{api-gateway}}"
+									],
+									"path": [
+										"blogger",
+										"new-post"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "BFF",
+			"item": [
+				{
+					"name": "Auth MFE",
+					"item": [
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Successful POST request\", function () {",
+											"    var response = pm.response.json();",
+											"    var token = response.token;",
+											"    pm.environment.set(\"auth-token\", token);",
+											"    pm.expect(pm.response.code).to.be.oneOf([200]);",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"username\": \"emilys\",\n    \"password\": \"emilyspass\",\n    \"expiresInMins\": 30\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-bff-host}}/auth/login",
+									"host": [
+										"{{api-bff-host}}"
+									],
+									"path": [
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Reader MFE Copy",
+					"item": [
+						{
+							"name": "Get Reader Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-bff-host}}/reader/me",
+									"host": [
+										"{{api-bff-host}}"
+									],
+									"path": [
+										"reader",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Post Detail by ID",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-bff-host}}/reader/posts/1",
+									"host": [
+										"{{api-bff-host}}"
+									],
+									"path": [
+										"reader",
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Blogger MFE",
+					"item": [
+						{
+							"name": "Get Blogger Me",
+							"request": {
+								"auth": {
+									"type": "apikey",
+									"apikey": [
+										{
+											"key": "value",
+											"value": "{{auth-token}}",
+											"type": "string"
+										},
+										{
+											"key": "key",
+											"value": "Authorization",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{api-bff-host}}/blogger/me",
+									"host": [
+										"{{api-bff-host}}"
+									],
+									"path": [
+										"blogger",
+										"me"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create a new Post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n    \"userId\": 5,\n    \"title\": \"His mother had always taught him\",\n    \"body\": \"His mother had always taught him not to ever think of himself as better than others. He'd tried to live by this motto. He never looked down on those who were less fortunate or who had less money than him. But the stupidity of the group of people he was talking to made him change his mind.\",\n    \"tags\": [\n        \"history\",\n        \"american\",\n        \"fiction\"\n    ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{api-bff-host}}/blogger/new-post",
+									"host": [
+										"{{api-bff-host}}"
+									],
+									"path": [
+										"blogger",
+										"new-post"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "GraphQL",
+			"item": [
+				{
+					"name": "REST",
+					"item": [
+						{
+							"name": "Dictionary",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://rickandmortyapi.com/api",
+									"protocol": "https",
+									"host": [
+										"rickandmortyapi",
+										"com"
+									],
+									"path": [
+										"api"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Locations list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://rickandmortyapi.com/api/location",
+									"protocol": "https",
+									"host": [
+										"rickandmortyapi",
+										"com"
+									],
+									"path": [
+										"api",
+										"location"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Character Details",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "https://rickandmortyapi.com/api/character/8",
+									"protocol": "https",
+									"host": [
+										"rickandmortyapi",
+										"com"
+									],
+									"path": [
+										"api",
+										"character",
+										"8"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "GraphQL",
+					"item": [
+						{
+							"name": "Get List of Locations",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query {\n  characters( filter: { name: \"rick\" }) {\n    results{\n      location{\n        id\n        name\n      }\n    }\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://rickandmortyapi.com/graphql",
+									"protocol": "https",
+									"host": [
+										"rickandmortyapi",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get Locations details and characters",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "graphql",
+									"graphql": {
+										"query": "query {\n  location(id: 1) {\n    id\n    name\n    dimension\n    residents {\n      id\n      name\n      status\n      species\n    }\n  }\n}",
+										"variables": ""
+									}
+								},
+								"url": {
+									"raw": "https://rickandmortyapi.com/graphql",
+									"protocol": "https",
+									"host": [
+										"rickandmortyapi",
+										"com"
+									],
+									"path": [
+										"graphql"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	]
+}

@@ -1,0 +1,5 @@
+{
+  "auth_api": "https://dummyjson.com/auth",
+  "user_api": "https://dummyjson.com/users",
+  "post_api": "https://dummyjson.com/posts"
+}
